@@ -1,0 +1,79 @@
+1. 인터페이스 구현객체를 사용하는 방법
+	(1) 인터페이스 변수를 선언한다.
+	(2) 구현객체를 인터페이스 변수에 대입한다.
+	* 구현객체가 대입되는 인터페이스 변수는 주소값을 저장하는
+	참조타입 변수이다.
+	
+2. 선언방법
+	인터페이스 변수;
+	변수 = 구현객체;
+	또는
+	인터페이스 변수 = 구현객체;
+	예시) RemoteControl rc;
+			rc = new Television();
+			rc = new Audio();
+			
+3. 코드에서 인터페이스는 클래스의 필드, 생성자 또는 매소드의
+매개변수,  메소드의 로컬변수로 선언될 수 있다.
+	public class MyClass{
+	
+		RemoteControl rc = new Television();
+		
+		MyClass(RemoteControl rc){
+			this.rc = rc;
+		}
+		
+		void methodA(){
+			RemoteControl rc = new Audio();
+		}
+		
+		void methodB(RemoteControl rc){
+		
+		}
+		
+4. 개발 코드에서 RemoteControl의 변수 rc로 turnOn() 또는
+	turnOff() 메소드를 호출하면 <구현 객체> 의 turnOn()과
+	turnOff() 메소드가 자동 실행된다.
+	
+		RemoteControl rc = new Television();
+		rc.turnOn(); ==>Television의 turnOn() 실행
+		rc.turnOff(); ==>Television의 turnOff()실행		
+
+5.RemoteControl 인터페이스는 setMute()라는 디폴트메소드를 가지고 있지만,
+이 메소드를 다음과 같이 호출할 수 없다.
+
+	RemoteControl.setMute(true);
+	==>구현객체를 인터페이스 변수에 대입해서 호출해야 한다.
+	RemoteControl rc = new Television();
+	rc.setMute(true);
+	
+6.디폴트 메소드는 모든 구현 객체가 가지는 기본메소드이다.
+	(이런 의미에서 default라는 키워드를 사용함)
+	
+7.디폴트 메소드의 내용이 맞지 않아 수정이 필요할 때는
+	구현 클래스에서 오버라이딩하여 자신에게 맞게 수정한다.
+	===> 디폴트 메소드 대신 오버라이딩된 메소드가 호출됨.	
+		
+8.정적 메소드: 인터페이스로 바로 호출이 가능
+	public class RemoteControlEx2 {
+		public static void main(String[] args){
+			RemoteControl.changeBattery();
+		}
+	}
+	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
