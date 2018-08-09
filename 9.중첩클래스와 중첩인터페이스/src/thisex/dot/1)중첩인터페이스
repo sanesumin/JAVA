@@ -1,0 +1,6 @@
+1.¼±¾ð
+	class A{
+		interface I{
+			void method();
+		}
+	}

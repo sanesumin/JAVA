@@ -1,0 +1,16 @@
+1. 선언(인터페이스의 경우 익명 구현객체 생성)
+	class TV implements RemoteControl{   }
+	class A{
+		RemoteControl field = new TV(	); //필드에 구현객체대입
+		void method() {
+			RemoteControl localVar = new TV();
+			//로컬변수에 구현객체 대입
+		}
+	}
+2. 익명 구현객체(인터페이스)
+	인터페이스 [필드|변수] = new 인터페이스(){
+		//인터페이스에 선언된 추상메소드의 실체 메소드선언
+		//필드
+		//메소드
+	};
+	0
