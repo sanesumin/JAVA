@@ -1,0 +1,58 @@
+* 실행 예외는 자바 컴파일러가 체크를 하지 않는다.
+* 개발자의 경험에 의해서 예외처리 코드를 삽입해야한다.
+* 다음은 자주 발생되는 실행 예외이므로 언제 발생되고
+어떤 오류 메시지가 출력되는지 알아둘 필요가 있음
+
+1.NullPointerException
+1) 가장 자주 발생
+2) 정의: 객체 참조가 없는 상태, 즉null 값을 갖는 참조변수
+로 객체 접근 연산자인 도트(.)를 사용했을때 발생
+3) 원인: 객체가 없는 상태에서 객체를 사용하려했기 때문
+4) 현상: 프로그램에서 예외가 발생하면 예외메시지가
+console 뷰에 출력되면서 프로그램이 종료됨.
+-> 어떤 예외가 어떤 소스의 몇번째 코드에서
+발생했는지에 대한 정보가 들어있음
+
+2.ArrayIndexOutOfBoundsException
+1)배열에서 인덱스 범위를 초과해서 사용할 경우 실행 예외인
+java.lang.ArrayIndexOutOfBoundsException이 발생
+2) 예시: 길이가 3인 int[] arr = new int[3];배열을 선언했다면
+배열항목을 지정하기위해 arr[0]~arr[2]를 사용가능
+--> 만약 arr[3]을 사용하면 인덱스 범위를 초과하게 된다.
+3.NumberFormatException
+1) 문자열로 되어있는 데이터를 숫자로 변경하는 경우가 자주 발생한다.
+	ex) Integer.parseInt(String s) :주어진 문자열을 정수로 변환해서 
+												리턴 int값을 얻게됨.
+		Double.parseDouble(String s):주어진 문자열을 실수로 변환해서
+													리턴, double값을 얻게됨
+		*여기서 Integer와 Double은 포장(Wrapper)클래스라고함
+		11장에서 자세히 설명됨
+		
+4.ClassCastException
+1)올바른 상속과 구현관계
+	-Animal animal = new Dog()	;
+	Dog dog = (Dog)animal;
+	-RemoteControl rc = new Television();
+	Television tv = (Television)rc;
+2)예외가 발생하는 경우(ClassCastException)
+-Animal animal = new Dog(	);
+Cat cat = (Cat) animal;
+-RemoteControl rc = new Television(	;
+Audio audio = (Audio)rc;
+
+3)방지법:instanceof 연산자로 확인해야한다.
+연산의 결과가 true이면 좌항객체를 우항타입으로 변환이 가능
+ex)Animal animal = new Dog(	);
+	if(animal instanceof Dog){
+		Dog dog = (Dog) animal;
+	}else if(animal instanceof Cat){
+		Cat cat = (Cat) animal;
+	}
+	또는 
+		RemoteControl rc = new Audio(	);
+		if(rc instanceof Television){
+			Television tv = (Television)rc;
+		}else if(rc instanceof Audio){
+			Audio audio = (Audio) rc;
+		}
+		위와같이 코딩하면 튼튼한 코딩이 된다.

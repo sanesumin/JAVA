@@ -1,0 +1,42 @@
+1. 자동 리소스란?
+	try~ with ~ resources를 사용하면 예외 발생 여부와 상관없이
+	사용했던 리소스 객체(각종 스트림, 서버 소켓, 소켓, 각종 채널)의
+	close()메소드를 호출해서 안전하게 리소스를 닫아줌
+	* 리소스:데이터를 읽고 쓰는 객체
+	ex)FileInputStream: 파일의 데이터를 읽는 객체
+		FileOutputStream: 파일에 쓰는 리소스 객체
+2.자바 6이전까지 사용한 코드
+	FileInputStream fis = null;
+	try{
+		fis = new FileInputStream("file.txt");
+		...
+	}catch(IOException e){
+		...
+	}finally{
+		if(fis!= null){
+				try{
+					fis.close();
+				}catch(IOException e){}
+			}
+		}
+3.새로운 방법(자바7부터)
+	try(FileInputStream fis = new FileInputStream("file.txt")){
+		...
+	}catch(IOException e){
+	
+	}
+	1) try블록을 정상적으로 실행완료했거나 도중에 예외가 발생하면
+	자동으로FileInputStream의 close()메소드가 호출됨
+	2) try{}에서 예외가 발생하면 우선 close()로 리소스를 닫고
+	catch블록을 실행
+	3)만약 복수개의 리소스를 사용한다면?
+	try{
+		FileInputStream fis = new FileInputStream("file1.txt");
+		FileOutputStream fos = new FileOutputStream("file2.txt");
+		){
+		...
+		}catch(IOException e) {
+		
+		}
+		
+	4)리소스 객체는 java.lang.AutoClosable

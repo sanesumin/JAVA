@@ -1,0 +1,68 @@
+1. 프로그램 개발시 제공되는 예외만으로 다양한 예외를 실행시킬수 없을때가 있다.
+	예) 은행업무를 처리하는 프로그램에서 잔고보다 더 많은 
+	출금 요청이 들어왔을 경우 오류나고, 프로그램은 잔고 부족예외를 발생시킴
+	==> 이러한 것들은 애플리케이션 예외(Application Exception)이라 하며 
+	개발자가 직접 만들기 때문에 사용자 정의 예외라고도 한다.
+2. 사용자 정의 예외 클래스 선언
+1) 일반예외를 선언할 경우 Exception을 상속하면 도고, 실행예외로
+선언할 경우RuntimeException을 상속하면 됨
+ex) public class XXXException extends [Exception |
+					RuntimeException]{
+			public XXXException(){}
+			public XXXException(String message)
+				{super(message);}
+2) 사용자 정의 예외클래스의 경우 Exception으로 이름이 끝나는 것이 좋음.
+3) 사용자 정의 예외 클래스도 필드, 생성자, 메소드 선언들을
+포함할 수 있지만  대부분 생성자 선언만을 포함함.
+4) 생성자 정의는 하나는 기본생성자, 하나는 예외 발생 원인
+즉 예외메시지를 전달하기 위해 String타입의 매개변수를 갖는 생성자이다.
+5) String 타입의 매개변수를 갖는 생성자는 상위 클래스의
+생성자를 호출하여 예외 메시지를 넘겨줌==>catch{}블록의 예외처리코드생성
+3.예외발생시키기
+1) 코드에서 예외를 발생시키는 방법
+	throw new XXXException();
+	throw new XXXException("메시지");
+	
+2) try~catch로 받아줄 수 있고, throws키워드로 예외를 떠넘길수있다.
+	try{
+		method();
+	}catch(XXXException e){
+		//예외처리
+	}
+4. 예외정보얻기
+1)예외가 발생되서 예외객체가 만들어지면 catch문의 매개변수에서 참조하게 되므로
+매개변수를 이용하면 예외객체의 정보를 알 수 있다.
+2) 모든 예외는 Exception클래스의 상속을 받기 때문에 가지고 있는 메소드들을
+모든 예외 객체에서 호출할 수 있다.
+ex) getMessage(), printStackTrace()
+ex) 메시지 자동 저장
+	throw new XXXException("예외메시지");
+3)예외 메시지의 내용에는 왜 예외가 발생했는지에대한 간단한 설명이 포함됨
+4)예외 메시지에 예외코드를 포함하기도 하는데 다음과 같이 얻을 수 있다.
+String message = e.getMessage(); (e는 발생한 예외 객체)
+5)printStackTrace()는 메소드 이름에서도 알수 있듯 예외발생 코드를 추적하여
+모두 콘솔에 출력,어떤 예외가 어디에서 발생했는지 상세하게 출력해준다.
+ex) try{
+	//예외 객체 발생
+	}catch(예외 클래스 e){
+		//예외가 가진 메시지대입
+		String message= e.getMessage(	);
+		//예외 발생 경로를 추적
+		e.printStackTrace();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
