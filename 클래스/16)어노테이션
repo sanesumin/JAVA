@@ -1,0 +1,173 @@
+1.어노테이션(Annotation)의 정의: 메타데이터(metadata)인데
+	메타데이터란 애플리케이션이 처리해야 할 데이터가 아니라 
+	컴파일 과정과 실행과정에서 코드를 어떻게 컴파일하고 처리할지
+	알려주는 정보를 말한다.
+2.형태
+ @AnnotationName(옛 + 어노테이션 이름)
+ 3. 용도(3가지)
+ 	1)컴파일러가 코드 문법에러를 체크하도록 정보를 제공함
+ 	2)빌드나 배치시에 코드를 자동으로 생성하도록 정보를 제공함
+ 	3)런타임 실행시 특정 기능을 실행하도록 정보를 제공함
+ 	예] @Override 어노테이션
+ 	메소드 선언시 사용되는데 , 메소드가 오버라이드(재정의)된 것임을
+ 	컴파일러에게 알려주어 컴파일러가 오버라이드 검사를 하도록 해준다.
+ 	====> 정확히 오버라이드가 안되었으면 컴파일러는 에러를 송부
+ 	예] 빌드시 자동으로 xml설정 파일을 생성
+ 	예]배포를 위해 jar 압축 파일을 생성
+ 	예] 실행시 클래스의 역할을 정의하기도 함
+ 4. 어노테이션 타입을 정의하는 법
+ public @interface AnnotationName {
+ 
+ }
+ 
+ 사용할 때 방법: @AnnotationName
+ 
+ 5.엘리먼트 타입:int,double 같은 기본 데이터 타입 String, 열거타입,
+ Class타입, 배열타입을 사용가능
+ * 엘리먼트 이름 뒤에는 ()가 붙어야함
+ 	예] 
+ 	public @interface AnnotationName{
+ 		String elementName1();
+ 		int elementName2()	default 5;
+ 	}
+ 	사용예]
+ 	@AnnotationName(elementName1="값",elementName2=3);
+ 	또는 
+ 	@AnnotationName(elementName1="값");
+ 	이유: elementName1은 디폴트값이 없기 때문에 반드시 값을 기술해야함.
+ 	elementName2는 디폴트값이 있기 때문에 생략가능하다.
+ 6.어노테이션은 기본 엘리먼트인 value를 가질수 있다.
+ 	public @interface AnnotationName{
+ 		String value();
+ 		int elementName() default 5;
+ 	}
+ 	*value값을 주고 싶을때 
+ 	@AnnotationName("값");
+ 	*value엘리먼트와 다른 엘리먼트의 값을 동시에 주고 싶다면
+ 	정상적인 방법으로 지정
+ 	@AnnotationName(value="값",elementName=3);
+ 	
+ 7. 어느곳에 어노테이션을 적용할수 있나?
+ java.lang.annotation.ElementType에 열거 상수로 정의되어 있음
+ 
+ TYPE:클래스, 인터페이스, 열거타입
+ ANNOTATION_TYPE:어노테이션
+ FIELD:필드
+ CONSTRUCTOR:생성자
+ METHOD:메소드
+ LOCAL_VARIABLE:로컬변수
+ PACKAGE:패키지
+ 
+ 대상을 지정할대 @Target어노테이션을 사용(기본엘리먼트인 value는
+ ElementType 배열을 값으로 가짐 ==> 적용될 대상을 복수개로 지정하기 위해서임}
+ 	예] @Target({ElementType.TYPE, ElementType.FIELD,
+ 						ElementType.METHOD});
+ 		 public @interface AnnotationName{
+ 		 
+ 		 }
+ 	==>클래스 , 필드 , 메소드만 어노테이션 적용가능(생성자는 불가능)
+ 	@AnnotationName
+ 	public class ClassName{
+ 		@AnnotationName
+ 		private String fieldName;
+ 		
+ 		public ClassName(){}
+ 		
+ 		@AnnotationName
+ 		publicvoid methodName(){}
+ 		}
+ 		
+ 	8.어노테이션 유지
+ 	어느 범위까지 유지할것인가
+ 	런타임시에도유지할것인가
+ 	java.lang.annotation.RetentionPolicy 열거 상수로 정의되어 있음
+ 	
+ 	
+ 	SOURCE:소스상에서만 어노테이션 정보를 유지,
+ 					바이트코드에는 정보가 남지 않음.
+ 	CLASS;바이트 코드까지 어노테이션 정보가 유지됨,
+ 				하지만 리플렉션을 이용해서 어노테이션 정보를 얻을수는 없다.
+ 	RUNTIME:바이트코드까지 유지되고 리플렉션을 이용해서 런타임시
+ 					어노테이션 정보를 얻을 수 있다.
+ 					
+ 					
+ 	*리플렉션(Reflection)이란?
+ 	런타입시에 클래스의 메타 정보를 얻는 기능을 말함
+ 	예] 클래스의 필드, 생성자, 메소드 정보, 적용된 어노테이션 정보를 알아냄
+ 	*@Retention을 사용함
+ 	예] @Target({ElementType.TYPE, ElementType.FIELD,
+ 						ElementType.METHOD});
+ 		 public @interface AnnotationName{
+ 		 
+ 		 }
+ 9.런타임시 어노테이션 정보 사용하기(메소드)
+ *런타임시에 어노테이션이 적용되었는지 확인하고 
+ 엘리먼트값을 이용해서 특정작업을 수행하는 방법들
+ *java.lang.Class를 이용:클래스에 적용된 어노테이션 정보를 얻을수 있음
+ *Class의 getFields(),getConstructors(),getDeclaredMethods()
+ ===>java.lang.reflect 패키지의 Field, Constructor, Method타입의
+ 배열을 얻어야함(무엇을 얻는가? 필드/생성자/메소드에 적용된 어노테이션 정보)
+ 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	

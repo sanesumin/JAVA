@@ -1,0 +1,21 @@
+1.다른 패키지에 있는 클래스를 사용하는 방법
+1) 패키지와 클래스를 모두 기술
+ package com.mycompany;
+ public class Car{
+ 	com.hankookTire tire
+ 		= new com.hankook.Tire();
+ 	}
+ 2)패키지를 import로 선언하고 클래스를 쓸 때는
+ 	패키지를 생략한다.
+ 	
+ 	package com.mycompany;
+ 	
+ 	import com.hankook.Tire;
+ 	(또는 import com.hankook.*;)
+ 	public class Car{
+ 		Tire tire = new Tire();
+ 	]
+ 3) com.mycompany 패키지와 com.mycompany.project패키지
+ 	모두 사용하려면
+ 	import com.mycompany.*;
+ 	import com.mycompany.project.*;

@@ -1,0 +1,36 @@
+1. 패키지로 구분하는 클래스
+	상위패키지.하위패키지.클래스
+	: 패키지명이 다르면같은 이름의 클래스라도
+	서로 다르게 취급한다.
+2.구체적인 예
+	com.mycompany.Car의 경우
+	폴더구조:
+	com\mycompany\Car.class가 존재
+3. 주의사항
+	위의 예에서 Car.class만 복사해서
+	com\yourcompany에 붙여넣기 한다고 해도 실행되지 않음
+	====> 아직 패키지가 com.mycompany.Car이기 때문
+	?>>>>>그래서 클래스를 이동할 경우 패키지 전체를 이동시켜야함
+4.패키지 선언방법
+	package 상위패키지.하위패키지;//폴더구조가 생김
+	
+	public class ClassName{
+	
+	...
+	}
+5.패키지 명명 규칙
+	-숫자로 시작하면 안됨
+	-_,$의 경우를 제외한 특수문자는 안됨
+	-java로 시작해서는 안되는데 이것은 자바표준API에서만 사용되기 때문임
+	-모두 소문자로 작성하는 것이 관례
+	-되도록 영어로 써줄것을 권장
+6.패키지명이 중복될 경우를 대비해서 회사 도메일명을 역순으로 적어준다.
+	com.samsung.projectname
+	com.hyundai.projectname
+	com.lg.project.name
+	org.apache.projectname
+	---> 맨끝에 실제 프로젝트 이름을 적어준다.
+7.패키지 선언이 포함된 클래스 컴파일
+	javac -d            ClassName.java   ==>현재 폴더 내에 작성
+	javac -d..\bin    ClassName.java   ==>현재 폴더와 같은 위치의 bin폴더에 생성
+	javac -d C:\temp\bin ClassName.java   ==>C:\Temp\bin폴더
