@@ -1,0 +1,26 @@
+1. 학생 5명의 성적의 총합을 구하는 프로그램
+	int score1 = 20;
+	int score2 = 80;
+	int score3 = 90;
+	int score4 = 100;
+	int score5 = 50;
+	int sum = sum1 + sum2 + sum3 + sum4 + sum5;
+	
+	int sum = 0;
+	int score [100] = {20,80,90,100,50};
+	for(int i=0; i<=100; i++){
+		sum += score[i];
+	}
+	
+2) 타입 변수[];
+	int intArray[];
+	double doubleArray[];
+	String strArray[];
+	
+4.1) 배열 변수는 참조변수
+  2) 배열도 객체이므로 힙 영역에 생성됨
+  	 배열 변수는 힙 영역의 배열 객체를 참조하게 됨(주소값을 가지고 옮)
+  3) 참조할 배열 객체가 없다면 null값으로 초기화될 수 있음
+  	 타입[] 변수 = null;
+  	 주의점 : 배열 변수가 null을 가진 상태에서 변수[인덱스]로 값을 읽거나 저장하게 되면
+  	 NullPointerException이 발생함.
